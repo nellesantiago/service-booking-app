@@ -80,7 +80,7 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV["MY_APP_DATABASE_URL"] %>
+  url: <%= ENV["DATABASE_URL"] %>
   database: service_booking_app_production
   username: service_booking_app
   password: <%= ENV["SERVICE_BOOKING_APP_DATABASE_PASSWORD"] %>
