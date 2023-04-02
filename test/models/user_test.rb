@@ -21,7 +21,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "user should have a unique email" do
     @user.save
-    @user2 = User.new(first_name: "Rails", last_name: "Test", email: @user.email, password: "test123")
+    @user2 = User.new(email: @user.email, password: "test123")
     assert_not @user2.save
   end
 
