@@ -1,0 +1,32 @@
+.nav {
+  border-top: 1px solid #d3d3d3;
+  height: 80px;
+  width: 338px;
+  position: fixed;
+  bottom: 8%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+
+    .button {
+      text-align: center;
+      img {
+        width: 25px;
+      }
+
+      .title {
+        font-size: 10px;
+        color: grey;
+      }
+    }
+  }
+
+
+}

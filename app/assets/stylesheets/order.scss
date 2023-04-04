@@ -1,0 +1,125 @@
+.order {
+  width: 370px;
+  height: 750px;
+  padding: 0 50px;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  .bg {
+    height: 120px;
+    width: 370px;
+    background-color: #ef768b;
+    border-radius: 50px 50px 0 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 0 15px 60px;
+    z-index: -2;
+  }
+
+  .top {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 11%;
+    left: 9%;
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  .back {
+    margin-right: 10px;
+    text-decoration: none;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .container {
+    width: 300px;
+    margin-top: 10px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    form {
+      padding: 10px;
+      .date-label {
+        font-size: 14px;
+        color: #2f2f2f;
+      }
+
+      input[type='date'] {
+        border: 1px solid #d66275;
+        color: #d66275;
+        padding: 5px 10px;
+        border-radius: 10px;
+        outline: none;
+
+        &::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+          border-radius: 5px;
+          color: #d66275;
+        }
+      }
+
+      input[type='radio'] {
+        opacity: 0;
+        position: fixed;
+        width: 0;
+      }
+
+      #collection-radio-buttons {
+        margin-top: 20px;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        color: #d66275;
+
+        label {
+          border: 1px solid #d66275;
+          border-radius: 5px;
+          margin: 10px 20px;
+          font-size: 14px;
+          width: 100px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+      }
+
+      input[type='radio']:checked + label {
+        background-color: #d66275;
+
+        color: white;
+      }
+    }
+    input[type='submit'] {
+      background-color: #d66275;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 10px;
+      width: 300px;
+      border: none;
+      font-size: 16px;
+      margin-bottom: 30px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}
