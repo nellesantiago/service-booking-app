@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if user_logged_in?
-      redirect_to users_path
+      redirect_to categories_path
     end
   end
 
@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user&.authenticate(params[:session][:password])
       login(@user)
-      redirect_to users_path
+      redirect_to categories_path
     else
       flash[:alert] = "Invalid email or password"
       redirect_to login_path
