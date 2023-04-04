@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def history
-    @orders = current_user.orders.select { |order| order.booking.status == "done" }
+    @orders = current_user.orders.select { |order| order.booking.status == "done" || "cancelled" }
   end
 
   def show

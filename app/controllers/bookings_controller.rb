@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user
   before_action :prevent_admin, except: :update
-  before_action :require_cart_items
+  before_action :require_cart_items, except: :update
   
   def new
     if session[:booking_id]
@@ -32,8 +32,8 @@ class BookingsController < ApplicationController
       if booking_params[:payment_status]
         @booking.payment.update(payment_status: booking_params[:payment_status])
       end
-      redirect_to checkout_path if current_user.customer?
-      redirect_to request.referrer if current_user.admin?
+      redirect_to checkout_path if current_user.customer? && request.referrer == new_booking_url
+      redirect_to request.referrer
     else
       render :new, status: :unprocessable_entity
     end

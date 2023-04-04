@@ -44,9 +44,11 @@
         <div class="status">
           <% if @order.booking.status == "upcoming" %><i class="fa-regular fa-calendar-xmark"></i>
             Upcoming
-          <% else %>
+          <% elsif  @order.booking.status == "done"%>
             <i class="fa-regular fa-calendar-check"></i>
             Done
+            <% else %>
+            Cancelled
           <% end %>
         </div>
       </div>
@@ -94,6 +96,16 @@
             <%= form.submit "Served" %>
           <% else %>
             <%= form.submit "Served", disabled: :true %>
+          <% end %>
+        <% end %>
+        <% elsif current_user.customer? && @order.booking.status == "upcoming" %>
+         <%= form_with(model: @order.booking) do |f| %>
+          <%= f.hidden_field :status, value: "cancelled" %>
+          <%= f.hidden_field :payment_status, value: "unpaid" %>
+          <% if @order.booking.status == "upcoming" || "pending" %>
+            <%= f.submit "Cancel" %>
+          <% else %>
+            <%= f.submit "Cancel", disabled: :true %>
           <% end %>
         <% end %>
       <% end %>

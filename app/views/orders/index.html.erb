@@ -21,9 +21,11 @@
             <div class="status">
           <% if order.booking.status == "upcoming" %><i class="fa-regular fa-calendar-xmark"></i>
             Upcoming
-          <% else %>
+          <% elsif  order.booking.status == "done"%>
             <i class="fa-regular fa-calendar-check"></i>
             Done
+            <% else %>
+            Cancelled
           <% end %>
         </div>
           </div>

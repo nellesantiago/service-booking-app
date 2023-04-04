@@ -16,7 +16,7 @@ class Booking < ApplicationRecord
   validates_length_of :city, maximum: 50
   validates_length_of :province, maximum: 50
 
-  enum status: { pending: 0, upcoming: 1, done: 2 }
+  enum status: { pending: 0, upcoming: 1, done: 2, cancelled: 3 }
 
   def format_data
     self.first_name = self.first_name.capitalize
