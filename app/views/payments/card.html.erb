@@ -1,0 +1,37 @@
+<div class="payment">
+  <div class="bg"></div>
+  <div class="top">
+    <%= link_to "< Enter your card details", checkout_path%>
+  </div>
+  <div class="container">
+    <%= form_with model: PaymentInfo.new, url: payments_pay_path, method: :post, class: "payment-form" do |form| %>
+      <div class="field">
+        <%= form.label :name, "Name on card" %>
+        <%= form.text_field :name, placeholder: "Jane Doe" %>
+      </div>
+      <div class="field">
+        <%= form.label :card_number %>
+        <%= form.text_field :card_number, placeholder: "---- ---- ---- ----" %>
+      </div>
+      <div class="card-details">
+        <div class="field">
+          <%= form.label :exp_month %>
+          <%= form.number_field :exp_month, placeholder: "MM" %>
+        </div>
+        <div class="field">
+          <%= form.label :exp_year  %>
+          <%= form.number_field :exp_year, placeholder: "YYYY " %>
+        </div>
+        <div class="field">
+          <%= form.label :cvc, "CVC" %>
+          <%= form.text_field :cvc, placeholder: "---" %>
+        </div>
+      </div>
+      <%= form.hidden_field :price, value: @cart.total %>
+      <%= form.hidden_field :email, value: current_user.email %>
+      <div class="actions">
+        <%= form.submit "Book Now" %>
+      </div>
+    <% end %>
+  </div>
+</div>

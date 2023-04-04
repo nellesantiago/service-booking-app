@@ -1,0 +1,7 @@
+<div class="edit-service">
+  <div class="bg"></div>
+  <div class="top">
+    <%= link_to "< Edit Service", category_path(@category), class: "back" %>
+  </div>
+  <%= render "form", service: @service, url: category_service_path(@category, @service) %>
+</div>

@@ -1,6 +1,11 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>Email:</strong>
+<div class="<%= dom_id user %> div">
+  <div>
+    <i class="fa-regular fa-circle-user"></i>
     <%= user.email %>
-  </p>
+  </div>
+  <div>
+    <%= link_to user_path(user), data: {turbo_method: :delete, turbo_confirm: "Delete user?"} do %>
+      <i class="fa-regular fa-trash-can"></i>
+    <% end %>
+  </div>
 </div>

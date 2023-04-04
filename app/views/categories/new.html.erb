@@ -1,0 +1,7 @@
+<div class="new-category">
+  <div class="bg"></div>
+  <div class="top">
+    <%= link_to "< New Category", categories_path, class: "back" %>
+  </div>
+  <%= render "form", category: @category %>
+</div>

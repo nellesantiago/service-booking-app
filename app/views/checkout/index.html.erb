@@ -1,0 +1,81 @@
+<div class="checkout">
+  <div class="bg"></div>
+  <div class="top">
+  <%= link_to "< Checkout", new_order_path, class: "back" %>
+  </div>
+  <div class="outer-container">
+  <div class="container">
+    <div class="personal-details">
+      <div class="title">Personal Details</div>
+      <div class="details">
+        <div>
+          Name:
+          <%= @booking.first_name %>
+          <%= @booking.last_name %>
+        </div>
+        <div>
+          Email address:
+          <%= current_user.email %>
+        </div>
+        <div>
+          Contact number:
+          <%= @booking.mobile_number %>
+        </div>
+      </div>
+    </div>
+    <div class="booking-details">
+      <div class="title">Booking Details</div>
+      <div class="details">
+        <div><i class="fa-regular fa-clock"></i>
+          1 hour service time</div>
+        <div>
+          <i class="fa-regular fa-calendar"></i>
+          <%= @order.date.strftime("%a, %b %e %Y") %>
+          •
+          <%= @order.time_slot.time %>
+        </div>
+
+      </div>
+      <div class="box">
+        <div class="box-title">Price Breakdown</div>
+        <div class="service-list">
+          <% @service_orders.each do |order| %>
+            <div class="left">
+              <div class="service-name">
+                <span>
+                x<%= order.quantity %>
+                </span>
+                <%= order.service.name %>
+              </div>
+            </div>
+            <div class="right">
+              <div class="service-price">
+                <%= number_to_currency(order.service.price, unit: "₱", strip_insignificant_zeros: true) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="total">
+          <div class="total-title">Total Cost</div>
+          <div class="total-price">
+                <%= number_to_currency(@cart.total, unit: "₱", strip_insignificant_zeros: true) %>
+          </div>
+        </div>
+      </div>
+       
+    </div>
+  </div>
+  <div>
+  <div class="payment-options">
+    <div class="cash">Cash</div>
+   <%= link_to "Card", payments_card_path %>
+   </div>
+  <%= form_with(url: payments_cash_path) do |form| %>
+    <%= form.hidden_field :booking_id, value: @booking.id %>
+    <%= form.hidden_field :amount, value: @cart.total %>
+    <%= form.hidden_field :payment_type, value: "cash" %>
+    <%= form.submit "Book Now" %>
+  <% end %>
+  </div>
+  </div>
+</div>

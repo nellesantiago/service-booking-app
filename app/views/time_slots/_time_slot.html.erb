@@ -1,0 +1,16 @@
+<div class="box">
+  <div>
+    <%= time_slot.time %>
+  </div>
+  <div>
+    <%= time_slot.max_slot %>
+  </div>
+  <div>
+    <%= link_to edit_category_time_slot_path(category, time_slot) do %>
+      <i class="fa-regular fa-pen-to-square"></i>
+    <% end %>
+    <%= link_to category_time_slot_path(category, time_slot), data: {turbo_method: :delete, turbo_confirm: "Delete timeslot?"} do %>
+      <i class="fa-regular fa-trash-can"></i>
+    <% end %>
+  </div>
+</div>

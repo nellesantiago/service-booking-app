@@ -1,0 +1,31 @@
+<div class="categories">
+  <div class="top">
+    <img src="https://www.linkpicture.com/q/logo-white_2.png">
+  </div>
+
+  <div class="outer-container">
+  <div class="container">
+    <% @categories.each do |category| %>
+      <%= link_to category, class: "category" do %>
+        <% if category.image.attached? %>
+          <div class="image">
+            <%= image_tag(category.image) %>
+          </div>
+        <% end %>
+        <div class="name">
+          <%= category.name %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if current_user.admin? %>
+      <%= link_to new_category_path, class: "new-category" do %>
+        <div class="new">+</div>
+      <% end %>
+    <% end %>
+  </div>
+  </div>
+
+  <%= render "layouts/nav"%>
+
+</div>

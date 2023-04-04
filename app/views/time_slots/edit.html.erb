@@ -1,0 +1,11 @@
+<div class="edit-timeslot">
+  <div class="bg"></div>
+  <div class="top">
+    <%= link_to "< Edit time slot", category_time_slots_path(@category) %>
+  </div>
+  <div class="container">
+    <%= render "form",
+    time_slot: @time_slot,
+    url: category_time_slot_path(@category, @time_slot) %>
+  </div>
+</div>

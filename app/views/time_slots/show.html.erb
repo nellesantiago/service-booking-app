@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @time_slot %>
+
+<div>
+  <%= link_to "Edit this time slot", edit_category_time_slot_path(@category, @time_slot) %> |
+  <%= link_to "Back to time slots", category_time_slots_path(@category) %>
+
+  <%= link_to "Destroy this time slot", category_time_slot_path(@category, @time_slot), data: {turbo_method: :delete} %>
+</div>

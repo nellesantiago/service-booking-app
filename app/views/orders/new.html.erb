@@ -1,0 +1,22 @@
+<div class="order">
+<div class="bg"></div>
+  <div class="top">
+  <%= link_to "< Select date and time", category_path(@cart.category), class: "back" %>
+  </div>
+  <div class="container">
+    <div class="tops">
+    <%= form_with(model: @order) do |form| %>
+      <div data-controller="schedule">
+        <%= form.label :date, "Choose Date:", class: "date-label" %>
+        <%= form.date_field :date, value: @order_date, min: @order_date, data: { action: "change->schedule#change" } %>
+        <div id="collection-radio-buttons">
+          <%= form.collection_radio_buttons :time_slot_id, TimeSlot.where(category_id: @cart.category).select { |time| time.available(@order_date, @cart) }, :id, :time %>
+        </div>
+      </div>
+      </div>
+      <div class="bottom">
+      <%= form.submit "Next", data: {turbo: :false} %>
+      </div>
+    <% end %>
+  </div>
+</div>

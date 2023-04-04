@@ -1,0 +1,97 @@
+<% category.services.where(service_type: "service").each do |service| %>
+  <div class="box">
+    <% if service.image.attached? %>
+      <div class="image">
+        <%= image_tag(service.image) %>
+      </div>
+    <% end %>
+    <div class="service-details">
+      <div class="top-details">
+        <div class="left">
+          <div class="name"><%= service.name %></div>
+          <div class="price">
+            <%= number_to_currency(service.price, unit: "₱", strip_insignificant_zeros: true) %>
+          </div>
+        </div>
+        <div class="right">
+          <% if current_user.customer? %>
+            <%= form_with(url: cart_add_path) do |form| %>
+              <%= form.hidden_field :service_id, value: service.id %>
+              <%= form.hidden_field :quantity, value: -1 %>
+              <%= form.submit "-" %>
+            <% end %>
+            <div class="pax">
+              <%= @item = find_cart_item(service) ? @item.quantity : 0 %>
+              <div class="pax-name">pax</div>
+            </div>
+            <%= form_with(url: cart_add_path) do |form| %>
+              <%= form.hidden_field :service_id, value: service.id %>
+              <%= form.hidden_field :quantity, value: 1 %>
+              <%= form.submit "+" %>
+            <% end %>
+          <% else %>
+            <%= link_to edit_category_service_path(category, service) do %>
+              <i class="fa-regular fa-pen-to-square"></i>
+            <% end %>
+            <%= link_to category_service_path(category, service), data: {turbo_method: :delete, turbo_confirm: "Delete service?"} do %>
+              <i class="fa-regular fa-trash-can"></i>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="bottom-details">
+        <div class="description">
+          <%= service.details %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if category.services.where(service_type: "add_on").any? %>
+  <div class="add-on-title">Add ons:</div>
+<% end %>
+<div class="add-on-container">
+  <% category.services.where(service_type: "add_on").each do |service| %>
+    <div class="add-on-box">
+      <% if service.image.attached? %>
+        <div class="image">
+          <%= image_tag(service.image) %>
+        </div>
+      <% end %>
+      <div class="service-details">
+        <div class="left">
+          <div class="name"><%= service.name %></div>
+          <div class="price">
+            <%= number_to_currency(service.price, unit: "₱", strip_insignificant_zeros: true) %>
+          </div>
+        </div>
+        <div class="right">
+          <% if current_user.customer? %>
+            <%= form_with(url: cart_add_path) do |form| %>
+              <%= form.hidden_field :service_id, value: service.id %>
+              <%= form.hidden_field :quantity, value: -1 %>
+              <%= form.submit "-" %>
+            <% end %>
+            <div class="pax">
+              <%= @item = find_cart_item(service) ? @item.quantity : 0 %>
+              <div class="pax-name">pax</div>
+            </div>
+            <%= form_with(url: cart_add_path) do |form| %>
+              <%= form.hidden_field :service_id, value: service.id %>
+              <%= form.hidden_field :quantity, value: 1 %>
+              <%= form.submit "+" %>
+            <% end %>
+          <% else %>
+            <%= link_to edit_category_service_path(category, service) do %>
+              <i class="fa-regular fa-pen-to-square"></i>
+            <% end %>
+            <%= link_to category_service_path(category, service), data: {turbo_method: :delete, turbo_confirm: "Delete service?"} do %>
+              <i class="fa-regular fa-trash-can"></i>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

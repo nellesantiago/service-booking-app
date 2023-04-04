@@ -1,0 +1,41 @@
+<div class="services">
+  <div class="bg"></div>
+  <div class="top">
+    <div>
+      <%= link_to categories_path, class: "back" do %>
+        <
+        <%= @category.name %>
+      <% end %>
+    </div>
+    <% if current_user.admin? %>
+      <div>
+        <%= link_to new_category_service_path(@category) do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+        <%= link_to category_time_slots_path(@category) do %>
+          <i class="fa-regular fa-clock"></i>
+        <% end %>
+        <%= link_to edit_category_path(@category) do %>
+          <i class="fa-regular fa-pen-to-square"></i>
+        <% end %>
+        <%= link_to category_path(@category), data: {turbo_method: :delete} do %>
+          <i class="fa-regular fa-trash-can"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="outer-container">
+    <div class="container">
+      <%= render @category %>
+    </div>
+    <% if @cart && @cart.cart_items.any? %>
+      <div class="footer">
+        <div class="total">
+          <div class="name">Total Cost</div>
+          <div class="amount"><%= number_to_currency(@cart.total, unit: "₱", strip_insignificant_zeros: true) %></div>
+        </div>
+        <%= link_to "Next", new_order_path, class: "next", data: { turbo: "false" } %>
+      </div>
+    <% end %>
+  </div>
+</div>

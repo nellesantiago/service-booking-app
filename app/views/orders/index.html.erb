@@ -1,0 +1,54 @@
+<div class="future-bookings">
+  <div class="bg"></div>
+  <div class="top">
+    <% if current_user.admin? %>
+      <%= link_to "< Bookings", categories_path %>
+    <% else %>
+      <%= link_to "< Future Bookings", categories_path %>
+    <% end %>
+  </div>
+  <div class="container">
+    <% @orders.order(updated_at: :desc).each do |order| %>
+      <%= link_to order_path(order), class: "box" do %>
+        <div class="top-box">
+          <div class="left">
+            <div class="category-name">
+              <%= order.category %>
+            </div>
+            <div class="booking-id">
+              Booking ID #<%= order.booking.id %>
+            </div>
+            <div class="status">
+          <% if order.booking.status == "upcoming" %><i class="fa-regular fa-calendar-xmark"></i>
+            Upcoming
+          <% else %>
+            <i class="fa-regular fa-calendar-check"></i>
+            Done
+          <% end %>
+        </div>
+          </div>
+          <div class="right">
+            <div class="price">
+              <%= number_to_currency(order.total, unit: "₱", strip_insignificant_zeros: true) %>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-box">
+          <% if current_user.admin? %>
+            <div class="customer-name">
+              <i class="fa-regular fa-circle-user"></i>
+              <%= order.booking.first_name %>
+              <%= order.booking.last_name %>
+            </div>
+          <% end %>
+          <div class="date">
+            <i class="fa-regular fa-calendar"></i>
+            <%= order.date.strftime("%a, %b %e %Y") %>
+            •
+            <%= order.time_slot.time %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

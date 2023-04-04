@@ -1,0 +1,12 @@
+<div class="booking-form">
+  <div class="bg"></div>
+  <div class="top">
+    <%= link_to "< Fill up form",
+    new_order_path,
+    class: "back",
+    data: {
+      turbo: "false"
+    } %>
+  </div>
+  <%= render "form", booking: @booking %>
+</div>

@@ -1,0 +1,25 @@
+<div class="time-slots">
+  <div class="bg"></div>
+  <div class="top">
+    <div>
+      <%= link_to "< Time slots", category_path(@category) %>
+    </div>
+    <div>
+      <%= link_to new_category_time_slot_path(@category) do %>
+        <i class="fa-solid fa-plus"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="container">
+    <div id="time_slots">
+      <div class="header">
+        <div>Time</div>
+        <div>Slots</div>
+        <div>Actions</div>
+      </div>
+      <% @time_slots.each do |time_slot| %>
+        <%= render time_slot, category: @category, time_slot: time_slot %>
+      <% end %>
+    </div>
+  </div>
+</div>

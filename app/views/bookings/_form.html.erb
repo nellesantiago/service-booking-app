@@ -1,0 +1,49 @@
+<%= form_with(model: booking) do |form| %>
+  <%= render "shared/error_messages", object: booking %>
+
+  <div>
+    <%= form.label :first_name, style: "display: block" %>
+    <%= form.text_field :first_name, placeholder: "Jane"%>
+  </div>
+
+  <div>
+    <%= form.label :last_name, style: "display: block" %>
+    <%= form.text_field :last_name, placeholder: "Doe" %>
+  </div>
+
+  <div>
+    <%= form.label :mobile_number, style: "display: block" %>
+    <%= form.number_field :mobile_number, placeholder: "10-digit mobile number" %>
+  </div>
+
+  <div>
+    <%= form.label :street, style: "display: block" %>
+    <%= form.text_field :street %>
+  </div>
+
+  <div>
+    <%= form.label :barangay, style: "display: block" %>
+    <%= form.text_field :barangay %>
+  </div>
+
+  <div>
+    <%= form.label :city, style: "display: block" %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div>
+    <%= form.label :province, style: "display: block" %>
+    <%= form.text_field :province %>
+  </div>
+
+  <div>
+    <%= form.label :postal_code, style: "display: block" %>
+    <%= form.number_field :postal_code, placeholder: "----" %>
+  </div>
+
+  <%= form.hidden_field :order_id, value: session[:order_id] %>
+
+  <div>
+    <%= form.submit "Next" %>
+  </div>
+<% end %>

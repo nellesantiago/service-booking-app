@@ -1,32 +1,15 @@
 <%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  <%= render "shared/error_messages", object: user %>
   <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, placeholder: "Email" %>
   </div>
-
   <div>
-    <%= form.label :password, "Password", style: "display: block"%>
-    <%= form.password_field :password %>
+    <%= form.password_field :password, placeholder: "Password" %>
   </div>
-
   <div>
-    <%= form.label :confirm_password, style: "display: block" %>
-    <%= form.password_field :confirm_password %>
+    <%= form.password_field :confirm_password, placeholder: "Confirm Password" %>
   </div>
-
   <div>
-    <%= form.submit %>
+    <%= form.submit%>
   </div>
 <% end %>

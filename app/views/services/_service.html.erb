@@ -1,0 +1,20 @@
+<div id="<%= dom_id service %>">
+  <% if service.image.attached? %>
+    <%= image_tag(service.image, style: "width: 50px") %>
+  <% end %>
+  <p>
+    <strong>Name:</strong>
+    <%= service.name %>
+  </p>
+
+  <p>
+    <strong>Details:</strong>
+    <%= service.details %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= service.price %>
+  </p>
+
+</div>

@@ -1,0 +1,100 @@
+<div class="show-order">
+  <div class="bg"></div>
+  <div class="top">
+    <% if request.referrer == history_url %>
+      <%= link_to history_path, class: "back" do %>
+        < Booking ID #<%= @order.booking.id %>
+      <% end %>
+    <% else %>
+      <%= link_to orders_path, class: "back" do %>
+        < Booking ID #<%= @order.booking.id %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="outer-container">
+    <div class="container">
+      <div class="customer-details">
+        <div class="title">Customer Details</div>
+        <div class="customer-name">
+          <i class="fa-regular fa-circle-user"></i>
+          <%= @order.booking.first_name %>
+          <%= @order.booking.last_name %>
+        </div>
+        <div class="email">
+          <i class="fa-regular fa-envelope"></i>
+          <%= @order.booking.user.email %>
+        </div>
+        <div class="contact-number">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <%= @order.booking.mobile_number %>
+        </div>
+      </div>
+      <div class="booking-details">
+        <div class="title">Booking Details</div>
+        <div class="service-time">
+          <i class="fa-regular fa-clock"></i>
+          1 hour service time
+        </div>
+        <div class="date">
+          <i class="fa-regular fa-calendar"></i>
+          <%= @order.date.strftime("%a, %b %e %Y") %>
+          •
+          <%= @order.time_slot.time %>
+        </div>
+        <div class="status">
+          <% if @order.booking.status == "upcoming" %><i class="fa-regular fa-calendar-xmark"></i>
+            Upcoming
+          <% else %>
+            <i class="fa-regular fa-calendar-check"></i>
+            Done
+          <% end %>
+        </div>
+      </div>
+      <div class="service-details">
+        <div class="title">Service Details</div>
+        <% @order.service_orders.each do |service| %>
+          <div class="box">
+            <div class="left">
+              <%= service.quantity %>x
+              <%= service.service.name %>
+            </div>
+            <div class="right">
+              <%= number_to_currency(service.total, unit: "₱", strip_insignificant_zeros: true) %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="payment-details">
+        <div class="title">Payment Details</div>
+        <div class="amount"><i class="fa-solid fa-peseta-sign"></i>
+          <%= number_to_currency(
+            @order.booking.payment.amount,
+            unit: "",
+            strip_insignificant_zeros: true
+          ) %>
+          <div class="payment-status">
+            <% if @order.booking.payment.payment_type == "card" %>
+              <i class="fa-regular fa-credit-card"></i>
+              Card •
+              <%= @order.booking.payment.payment_status.capitalize %>
+            <% else %>
+              <i class="fa-regular fa-money-bill-1"></i>
+              Cash •
+              <%= @order.booking.payment.payment_status.capitalize %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+      <% if current_user.admin? %>
+        <%= form_with(model: @order.booking) do |form| %>
+          <%= form.hidden_field :status, value: "done" %>
+          <%= form.hidden_field :payment_status, value: "paid" %>
+          <% if @order.booking.status == "upcoming" %>
+            <%= form.submit "Served" %>
+          <% else %>
+            <%= form.submit "Served", disabled: :true %>
+          <% end %>
+        <% end %>
+      <% end %>
+  </div>
