@@ -1,6 +1,10 @@
 class User < ApplicationRecord
     has_secure_password
-    
+    has_one :cart, dependent: :destroy
+    has_many :bookings, dependent: :destroy
+    has_many :orders, through: :bookings
+    has_many :payments, dependent: :destroy
+
     validates :email, presence: true, uniqueness: true
     validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
     before_save :format_data
