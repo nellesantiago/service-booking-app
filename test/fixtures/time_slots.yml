@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  time: MyString
+  max_slot: 1
+  category: first
+
+two:
+  time: MyString
+  max_slot: 1
+  category: second
