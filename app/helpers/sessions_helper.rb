@@ -26,4 +26,12 @@ module SessionsHelper
     def current_user?(user)
       current_user == user
     end
+
+    def prevent_admin
+      redirect_to categories_path unless current_user.customer?
+    end
+
+    def prevent_customer
+      redirect_to categories_path unless current_user.admin?
+    end
   end
