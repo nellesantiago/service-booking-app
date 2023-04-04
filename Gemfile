@@ -78,3 +78,5 @@ gem "aws-sdk-s3", require: false
 gem 'requestjs-rails'
 
 gem "faraday", "~> 2.4"
+
+gem 'mailjet'

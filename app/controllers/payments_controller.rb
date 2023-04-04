@@ -8,6 +8,7 @@ class PaymentsController < ApplicationController
     @booking.update(status: "upcoming")
     session.delete(:booking_id)
     session.delete(:order_id)
+    BookingMailer.with(user: current_user, order: @booking.order, booking: @booking).email_notification.deliver_now 
     redirect_to success_url(booking_id: @booking.id)
   end
 
@@ -23,6 +24,7 @@ class PaymentsController < ApplicationController
       @booking.update(status: "upcoming")
       session.delete(:booking_id)
       session.delete(:order_id)
+      BookingMailer.with(user: current_user, order: @booking.order, booking: @booking).email_notification.deliver_now 
       redirect_to success_url(booking_id: @booking.id), notice: "Payment successful!"
     elsif response.has_key?("errors") && fraud?(response["errors"].first["detail"])
       redirect_to request.referer, alert: "Something went wrong, please try again later"

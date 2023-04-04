@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+  </head>
+  <body>
+    Hi
+    <strong><%= @booking.first_name %></strong>,
+    <br><br>
+    Your booking has been confirmed. We are looking forward to providing you
+    with the best service.
+    <br><br>
+    <strong>Booking Details:</strong>
+    <br><br>
+    Booking ID:
+    <b>#<%= @booking.id %></b>
+    <br>
+    Date & Time:
+    <b><%= @order.date.strftime("%a, %b %e %Y") %>
+      •
+      <%= @order.time_slot.time %></b>
+    <br>
+    Duration:
+    <b>1 hour service time</b>
+    <br><br>
+    <strong>Services:</strong>
+    <% @order.service_orders.each do |service| %>
+      <p style="text-indent: 20px">
+        <%= service.service.name %>
+        <%= service.quantity %>
+        x
+        <%= number_to_currency(service.total, unit: "₱", strip_insignificant_zeros: true) %>
+      </p>
+    <% end %>
+    <strong>Total:
+      <%= number_to_currency(
+        @order.booking.payment.amount,
+        unit: "₱",
+        strip_insignificant_zeros: true
+      ) %></strong>
+    <br>
+    <br>
+    <strong>Payment Method:
+      <% if @order.booking.payment.payment_type == "card" %>
+        Card
+      <% else %>
+        Cash
+      <% end %></strong>
+  </body>
+</html>
