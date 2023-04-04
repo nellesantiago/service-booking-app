@@ -4,7 +4,7 @@
     <%= link_to "< Booking History", categories_path %>
   </div>
   <div class="container">
-    <% @orders.each do |order| %>
+    <% @orders.sort_by{ |order| order.updated_at }.each do |order| %>
       <%= link_to order_path(order), class: "box" do %>
         <div class="top-box">
           <div class="left">

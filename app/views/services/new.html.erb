@@ -3,5 +3,5 @@
   <div class="top">
     <%= link_to "< New Service", category_path(@category), class: "back" %>
   </div>
-  <%= render "form", service: @service, url: category_services_path(@category) %>
+  <%= render "form", service: @service, url: category_services_path(@category), submit: "Create" %>
 </div>

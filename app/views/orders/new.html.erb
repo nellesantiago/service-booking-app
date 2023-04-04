@@ -10,7 +10,7 @@
         <%= form.label :date, "Choose Date:", class: "date-label" %>
         <%= form.date_field :date, value: @order_date, min: @order_date, data: { action: "change->schedule#change" } %>
         <div id="collection-radio-buttons">
-          <%= form.collection_radio_buttons :time_slot_id, TimeSlot.where(category_id: @cart.category).select { |time| time.available(@order_date, @cart) }, :id, :time %>
+          <%= form.collection_radio_buttons :time_slot_id, TimeSlot.order(:time).where(category_id: @cart.category).select { |time| time.available(@order_date, @cart) }, :id, :time %>
         </div>
       </div>
       </div>

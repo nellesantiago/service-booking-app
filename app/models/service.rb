@@ -10,11 +10,11 @@ class Service < ApplicationRecord
 
   before_save :format_data
 
-  validates_presence_of :details, :price
+  validates_presence_of :details, :price, :service_type
   validates :name, presence: true, length: { in: 1..20 }
   validates :image, presence: true
 
-  validates_numericality_of :price, greater_than: 0
+  validates_numericality_of :price, greater_than: 0, less_than: 10000
 
   enum service_type: {service: 0, add_on: 1}
 

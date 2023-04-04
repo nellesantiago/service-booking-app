@@ -4,6 +4,6 @@
     <%= link_to "< New time slot", category_time_slots_path(@category) %>
   </div>
   <div class="container">
-    <%= render "form", time_slot: @time_slot, url: category_time_slots_path(@category) %>
+    <%= render "form", time_slot: @time_slot, url: category_time_slots_path(@category), submit: "Create" %>
   </div>
 </div>

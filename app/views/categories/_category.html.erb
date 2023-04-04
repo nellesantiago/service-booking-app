@@ -48,6 +48,8 @@
   </div>
 <% end %>
 
+    <% if @cart && @cart.cart_items.any? %>
+
 <% if category.services.where(service_type: "add_on").any? %>
   <div class="add-on-title">Add ons:</div>
 <% end %>
@@ -93,5 +95,6 @@
         </div>
       </div>
     </div>
+  <% end %>
   <% end %>
 </div>

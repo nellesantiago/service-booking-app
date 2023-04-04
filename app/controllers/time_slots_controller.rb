@@ -4,7 +4,7 @@ class TimeSlotsController < ApplicationController
   before_action :set_time_slot, only: %i[ show edit update destroy ]
 
   def index
-    @time_slots = @category.time_slots
+    @time_slots = @category.time_slots.order(:time)
   end
 
   def show
@@ -21,7 +21,7 @@ class TimeSlotsController < ApplicationController
     @time_slot = @category.time_slots.build(time_slot_params)
 
     if @time_slot.save
-      redirect_to category_time_slots_path(@category), notice: "Time slot was successfully created."
+      redirect_to category_time_slots_path(@category), notice: "Time slot created!"
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class TimeSlotsController < ApplicationController
 
   def update
     if @time_slot.update(time_slot_params)
-      redirect_to category_time_slots_path(@category), notice: "Time slot was successfully updated."
+      redirect_to category_time_slots_path(@category), notice: "Time slot updated!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class TimeSlotsController < ApplicationController
 
   def destroy
     @time_slot.destroy
-    redirect_to category_time_slots_path(@category), notice: "Time slot was successfully destroyed."
+    redirect_to category_time_slots_path(@category), notice: "Time slot deleted!"
   end
 
   private

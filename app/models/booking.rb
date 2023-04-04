@@ -8,6 +8,14 @@ class Booking < ApplicationRecord
 
   validates :mobile_number, format: { with: /\A(09)\d{9}\z/ }
 
+  validates_length_of :postal_code, maximum: 4
+  validates_length_of :first_name, maximum: 20
+  validates_length_of :last_name, maximum: 20
+  validates_length_of :street, maximum: 50
+  validates_length_of :barangay, maximum: 50
+  validates_length_of :city, maximum: 50
+  validates_length_of :province, maximum: 50
+
   enum status: { pending: 0, upcoming: 1, done: 2 }
 
   def format_data

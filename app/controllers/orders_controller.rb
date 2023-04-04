@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user
   before_action :prevent_admin, except: %i[index show]
   before_action :require_cart_items, only: %i[new create]
+  before_action :clean_orders
 
   def index
     if current_user.admin?
@@ -63,5 +64,12 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:date, :time_slot_id)
+  end
+
+  def clean_orders
+    @orders = Order.all
+    @orders.each do |order|
+      order.destroy if order.booking == nil
+    end
   end
 end
