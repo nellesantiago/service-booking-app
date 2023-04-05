@@ -43,42 +43,43 @@
     width: 300px;
 
     form {
-        width: 300px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+
+      .field,
+      .actions {
         display: flex;
         flex-direction: column;
+      }
 
-        .field, .actions {
-            display: flex;
-            flex-direction: column;
-        }
+      label {
+        color: grey;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
 
-        label {
-            color: grey;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
+      input {
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+        margin-bottom: 10px;
+        padding: 0 20px;
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
+      }
 
-        input {
-            height: 40px;
-            border: none;
-            border-radius: 10px;
-            outline: none;
-            margin-bottom: 10px;
-            padding: 0 20px;
-            box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
-      -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
-      -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
-        }
-
-        input[type="submit"] {
-            box-shadow: none;
+      input[type='submit'] {
+        box-shadow: none;
         background-color: #d66275;
         color: white;
         margin-top: 10px;
         font-size: 16px;
         font-weight: 500;
-
-        }
+        cursor: pointer;
+      }
     }
   }
 }

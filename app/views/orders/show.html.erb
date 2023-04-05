@@ -48,6 +48,7 @@
             <i class="fa-regular fa-calendar-check"></i>
             Done
             <% else %>
+            <i class="fa-regular fa-calendar-xmark"></i>
             Cancelled
           <% end %>
         </div>
@@ -79,6 +80,10 @@
               <i class="fa-regular fa-credit-card"></i>
               Card •
               <%= @order.booking.payment.payment_status.capitalize %>
+              <% elsif @order.booking.payment.payment_type == "card" && @order.booking.status == "cancelled" %>
+              <i class="fa-regular fa-credit-card"></i>
+              Card •
+              <%= @order.booking.payment.payment_status.capitalize %>
             <% else %>
               <i class="fa-regular fa-money-bill-1"></i>
               Cash •
@@ -101,7 +106,9 @@
         <% elsif current_user.customer? && @order.booking.status == "upcoming" %>
          <%= form_with(model: @order.booking) do |f| %>
           <%= f.hidden_field :status, value: "cancelled" %>
-          <%= f.hidden_field :payment_status, value: "unpaid" %>
+          <% if @order.booking.payment.payment_type == "card" %>
+          <%= f.hidden_field :payment_status, value: "refunded" %>
+          <% end %>
           <% if @order.booking.status == "upcoming" || "pending" %>
             <%= f.submit "Cancel" %>
           <% else %>
