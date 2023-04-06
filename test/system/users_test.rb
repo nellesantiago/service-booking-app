@@ -30,7 +30,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Password", with: "123456"
     fill_in "Confirm Password", with: "123456"
 
-    click_on "Create User"
+    click_on "Sign up"
 
     assert_text "Welcome!"
   end
@@ -43,7 +43,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "Settings"
     
     fill_in "Email", with: "new@email.com"
-    click_on "Update User"
+    click_on "Update"
 
     assert_text "Account updated!"
   end

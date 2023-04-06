@@ -1,0 +1,17 @@
+category_first_blob:
+  key: hnd0ppyw0a5bqsjr9mq8btligc7y
+  filename: coffee.png
+  content_type: image/png
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: <%= File.size(Rails.root.join('test', 'fixtures', 'files', 'coffee.png')) %>
+  checksum: <%= Digest::MD5.file(Rails.root.join('test', 'fixtures', 'files', 'coffee.png')).base64digest %>
+  service_name: local
+
+service_one_blob:
+  key: ng9djorkinkkga8citujhg1h2jkq
+  filename: g.png
+  content_type: image/png
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: <%= File.size(Rails.root.join('test', 'fixtures', 'files', 'g.png')) %>
+  checksum: <%= Digest::MD5.file(Rails.root.join('test', 'fixtures', 'files', 'g.png')).base64digest %>
+  service_name: local

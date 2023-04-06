@@ -1,0 +1,9 @@
+category_first_image:
+  name: image
+  record: first (Category)
+  blob: category_first_blob
+
+service_one_image:
+  name: image
+  record: one (Service)
+  blob: service_one_blob
