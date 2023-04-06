@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user
   before_action :prevent_admin, except: %i[index show]
   before_action :require_cart_items, only: %i[new create]
-  before_action :clean_orders
+  before_action :clean_orders, except: :new
 
   def index
     if current_user.admin?

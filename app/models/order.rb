@@ -5,6 +5,8 @@ class Order < ApplicationRecord
   has_many :service_orders, dependent: :destroy
   has_many :services, through: :service_orders
 
+  validates_presence_of :date, :time_slot_id
+
   def highest_quantity
     service_orders.select {|order| order.service.service_type == "service"}.maximum(:quantity)
   end

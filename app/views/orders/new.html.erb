@@ -8,14 +8,14 @@
     <%= form_with(model: @order) do |form| %>
       <div data-controller="schedule">
         <%= form.label :date, "Choose Date:", class: "date-label" %>
-        <%= form.date_field :date, value: @order_date, min: @order_date, data: { action: "change->schedule#change" } %>
+        <%= form.date_field :date, value: @order_date + 1.day, min: @order_date + 1.day, data: { action: "change->schedule#change" } %>
         <div id="collection-radio-buttons">
-          <%= form.collection_radio_buttons :time_slot_id, TimeSlot.order(:time).where(category_id: @cart.category).select { |time| time.available(@order_date, @cart) }, :id, :time %>
+          <%= form.collection_radio_buttons :time_slot_id, TimeSlot.order(:time).where(category_id: @cart.category).select { |time| time.available(@order_date, @cart) }, :id, :time, {}, data: {action: "change->schedule#radio", schedule_clicked_value: false} %>
         </div>
       </div>
       </div>
       <div class="bottom">
-      <%= form.submit "Next", data: {turbo: :false} %>
+      <%= form.submit "Next", data: {turbo: :false}, disabled: true %>
       </div>
     <% end %>
   </div>

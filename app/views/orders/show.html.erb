@@ -113,7 +113,7 @@
     </div>
     <div>
       <% if @order.booking.status == "pending" %>
-        <%= link_to "Pay now", checkout_path(booking_id: @order.booking.id) %>
+        <%= link_to "Pay now", checkout_path(booking_id: @order.booking.id), class: "pay-now-button" %>
       <% end %>
       <% if current_user.admin? %>
         <%= form_with(model: @order.booking) do |form| %>

@@ -30,10 +30,10 @@
               <%= form.submit "+" %>
             <% end %>
           <% else %>
-            <%= link_to edit_category_service_path(category, service) do %>
+            <%= link_to edit_category_service_path(category, service), class: "edit-service-icon" do %>
               <i class="fa-regular fa-pen-to-square"></i>
             <% end %>
-            <%= link_to category_service_path(category, service), data: {turbo_method: :delete, turbo_confirm: "Delete service?"} do %>
+            <%= link_to category_service_path(category, service), data: {turbo_method: :delete, turbo_confirm: "Delete service?"}, class: "delete-service-icon" do %>
               <i class="fa-regular fa-trash-can"></i>
             <% end %>
           <% end %>
