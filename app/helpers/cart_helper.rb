@@ -8,4 +8,10 @@ module CartHelper
             redirect_to categories_path
         end
     end
+
+    def require_booking
+        unless session[:booking_id] || params[:booking_id]
+            redirect_to categories_path
+        end
+    end
 end

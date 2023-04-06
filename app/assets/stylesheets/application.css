@@ -29,6 +29,7 @@ body {
   height: 100vh;
   background-color: #fff5f7;
   user-select: none;
+  font-size: 14px;
 }
 
 .frame {

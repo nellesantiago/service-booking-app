@@ -24,8 +24,12 @@
           <% elsif  order.booking.status == "done"%>
             <i class="fa-regular fa-calendar-check"></i>
             Done
-            <% else %>
+            <% elsif order.booking.status == "cancelled" %>
+            <i class="fa-regular fa-calendar-xmark"></i>
             Cancelled
+            <% else %>
+            <i class="fa-regular fa-hourglass"></i>
+            Pending
           <% end %>
         </div>
           </div>

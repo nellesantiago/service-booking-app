@@ -8,12 +8,12 @@ class OrdersController < ApplicationController
     if current_user.admin?
       @orders = Order.all
     else
-      @orders = current_user.orders.select { |order| order.booking.status == "upcoming" }
+      @orders = current_user.orders.select { |order| order.booking.status == "upcoming" || order.booking.status == "pending" }
     end
   end
 
   def history
-    @orders = current_user.orders.select { |order| order.booking.status == "done" || "cancelled" }
+    @orders = current_user.orders.select { |order| order.booking.status == "done" || order.booking.status == "cancelled" }
   end
 
   def show

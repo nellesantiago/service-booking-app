@@ -1,9 +1,13 @@
 class PaymentsController < ApplicationController
   before_action :authenticate_user
-  before_action :require_cart_items
+  before_action :require_booking, except: :pay
 
   def cash
-    @booking = current_user.bookings.find(session[:booking_id])
+    if session[:booking_id]
+      @booking = current_user.bookings.find(session[:booking_id])
+    else
+      @booking = current_user.bookings.find(params[:booking_id])
+    end
     current_user.payments.create(booking: @booking, amount: params[:amount], payment_type: params[:payment_type])
     @booking.update(status: "upcoming")
     session.delete(:booking_id)
@@ -13,13 +17,22 @@ class PaymentsController < ApplicationController
   end
 
   def card
+    if session[:booking_id]
+      @booking = current_user.bookings.find(session[:booking_id])
+    else
+      @booking = current_user.bookings.find(params[:booking_id])
+    end
   end
 
   def pay
     @payment = Paymongo::V1::Payment.new
-    response = @payment.proceed(payment_info_params)
+    response = @payment.proceed(payment_info_params.except(:booking_id))
     if response == "succeeded"
-      @booking = current_user.bookings.find(session[:booking_id])
+      if session[:booking_id]
+        @booking = current_user.bookings.find(session[:booking_id])
+      else
+        @booking = current_user.bookings.find(payment_info_params[:booking_id])
+      end
       current_user.payments.create(booking: @booking, amount: payment_info_params[:price], payment_type: "card", payment_status: "paid")
       @booking.update(status: "upcoming")
       session.delete(:booking_id)
@@ -36,7 +49,7 @@ class PaymentsController < ApplicationController
   private
 
   def payment_info_params
-    params.require(:payment_info).permit(:name, :card_number, :exp_month, :exp_year, :cvc, :price, :email)
+    params.require(:payment_info).permit(:name, :card_number, :exp_month, :exp_year, :cvc, :price, :email, :booking_id)
   end
 
   def fraud?(str)

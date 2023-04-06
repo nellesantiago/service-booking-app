@@ -1,11 +1,15 @@
 class CheckoutController < ApplicationController
   before_action :authenticate_user
   before_action :prevent_admin
-  before_action :require_cart_items
-  
+  before_action :require_booking
+
   def index
-    @booking = Booking.find(session[:booking_id])
-    @order = Order.find(session[:order_id])
+    if session[:booking_id]
+      @booking = Booking.find(session[:booking_id])
+    else
+      @booking = Booking.find(params[:booking_id])
+    end
+    @order = @booking.order
     @service_orders = @order.service_orders
   end
 end

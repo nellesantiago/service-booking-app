@@ -99,7 +99,6 @@
             .name {
               font-weight: 600;
               color: #2f2f2f;
-              font-size: 14px;
               text-transform: capitalize;
             }
 
@@ -143,7 +142,6 @@
               width: 20px;
               height: 20px;
               border-radius: 5px;
-              font-size: 14px;
               padding-bottom: 2px;
               cursor: pointer;
             }
@@ -209,6 +207,7 @@
       display: flex;
       justify-content: space-between;
       padding: 10px;
+      align-items: center;
 
       .left {
         .name {
@@ -219,7 +218,7 @@
         }
 
         .price {
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 600;
           color: #d66275;
         }
@@ -279,6 +278,7 @@
       justify-content: space-between;
       font-weight: 700;
       color: #2f2f2f;
+      font-size: 16px;
     }
 
     .next {

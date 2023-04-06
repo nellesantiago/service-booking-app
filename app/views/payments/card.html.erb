@@ -27,8 +27,9 @@
           <%= form.text_field :cvc, placeholder: "---" %>
         </div>
       </div>
-      <%= form.hidden_field :price, value: @cart.total %>
+      <%= form.hidden_field :price, value: @booking.order.total %>
       <%= form.hidden_field :email, value: current_user.email %>
+      <%= form.hidden_field :booking_id, value: @booking.id %>
       <div class="actions">
         <%= form.submit "Book Now" %>
       </div>

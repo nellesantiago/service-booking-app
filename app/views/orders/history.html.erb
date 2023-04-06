@@ -14,6 +14,17 @@
             <div class="booking-id">
               Booking ID #<%= order.booking.id %>
             </div>
+            <div class="status">
+            <% if order.booking.status == "cancelled" %><i class="fa-regular fa-calendar-xmark"></i>
+              Cancelled
+            <% elsif  order.booking.status == "done" %>
+              <i class="fa-regular fa-calendar-check"></i>
+              Done
+            <% else %>
+              <i class="fa-regular fa-calendar-xmark"></i>
+              Cancelled
+            <% end %>
+          </div>
           </div>
           <div class="right">
             <div class="price">
@@ -35,6 +46,7 @@
             •
             <%= order.time_slot.time %>
           </div>
+          
         </div>
       <% end %>
     <% end %>

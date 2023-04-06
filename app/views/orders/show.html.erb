@@ -44,12 +44,15 @@
         <div class="status">
           <% if @order.booking.status == "upcoming" %><i class="fa-regular fa-calendar-xmark"></i>
             Upcoming
-          <% elsif  @order.booking.status == "done"%>
+          <% elsif  @order.booking.status == "done" %>
             <i class="fa-regular fa-calendar-check"></i>
             Done
-            <% else %>
+          <% elsif  @order.booking.status == "cancelled" %>
             <i class="fa-regular fa-calendar-xmark"></i>
             Cancelled
+          <% else %>
+            <i class="fa-regular fa-hourglass"></i>
+            Pending
           <% end %>
         </div>
       </div>
@@ -67,53 +70,76 @@
           </div>
         <% end %>
       </div>
-      <div class="payment-details">
-        <div class="title">Payment Details</div>
-        <div class="amount"><i class="fa-solid fa-peseta-sign"></i>
-          <%= number_to_currency(
-            @order.booking.payment.amount,
-            unit: "",
-            strip_insignificant_zeros: true
-          ) %>
-          <div class="payment-status">
-            <% if @order.booking.payment.payment_type == "card" %>
-              <i class="fa-regular fa-credit-card"></i>
-              Card •
-              <%= @order.booking.payment.payment_status.capitalize %>
-              <% elsif @order.booking.payment.payment_type == "card" && @order.booking.status == "cancelled" %>
-              <i class="fa-regular fa-credit-card"></i>
-              Card •
-              <%= @order.booking.payment.payment_status.capitalize %>
-            <% else %>
-              <i class="fa-regular fa-money-bill-1"></i>
-              Cash •
-              <%= @order.booking.payment.payment_status.capitalize %>
-            <% end %>
+      <% if @order.booking.status == "pending" %>
+        <div class="payment-details">
+          <div class="title">Payment Details</div>
+          <div class="amount"><i class="fa-solid fa-peseta-sign"></i>
+            <%= number_to_currency(
+              @order.total,
+              unit: "",
+              strip_insignificant_zeros: true
+            ) %>
+            <div class="payment-status">
+              <i class="fa-regular fa-circle-xmark"></i> Unpaid
+            </div>
           </div>
         </div>
-      </div>
+      <% else %>
+        <div class="payment-details">
+          <div class="title">Payment Details</div>
+          <div class="amount"><i class="fa-solid fa-peseta-sign"></i>
+            <%= number_to_currency(
+              @order.booking.payment.amount,
+              unit: "",
+              strip_insignificant_zeros: true
+            ) %>
+            <div class="payment-status">
+              <% if @order.booking.payment.payment_type == "card" %>
+                <i class="fa-regular fa-credit-card"></i>
+                Card •
+                <%= @order.booking.payment.payment_status.capitalize %>
+              <% elsif @order.booking.payment.payment_type == "card" && @order.booking.status == "cancelled" %>
+                <i class="fa-regular fa-credit-card"></i>
+                Card •
+                <%= @order.booking.payment.payment_status.capitalize %>
+              <% else %>
+                <i class="fa-regular fa-money-bill-1"></i>
+                Cash •
+                <%= @order.booking.payment.payment_status.capitalize %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-      <% if current_user.admin? %>
-        <%= form_with(model: @order.booking) do |form| %>
-          <%= form.hidden_field :status, value: "done" %>
-          <%= form.hidden_field :payment_status, value: "paid" %>
-          <% if @order.booking.status == "upcoming" %>
-            <%= form.submit "Served" %>
-          <% else %>
-            <%= form.submit "Served", disabled: :true %>
-          <% end %>
-        <% end %>
-        <% elsif current_user.customer? && @order.booking.status == "upcoming" %>
-         <%= form_with(model: @order.booking) do |f| %>
-          <%= f.hidden_field :status, value: "cancelled" %>
-          <% if @order.booking.payment.payment_type == "card" %>
-          <%= f.hidden_field :payment_status, value: "refunded" %>
-          <% end %>
-          <% if @order.booking.status == "upcoming" || "pending" %>
-            <%= f.submit "Cancel" %>
-          <% else %>
-            <%= f.submit "Cancel", disabled: :true %>
-          <% end %>
+    <div>
+    <% if @order.booking.status == "pending" %>
+    <%= link_to "Pay now", checkout_path(booking_id: @order.booking.id) %>
+    <% end %>
+    <% if current_user.admin? %>
+      <%= form_with(model: @order.booking) do |form| %>
+        <%= form.hidden_field :status, value: "done" %>
+        <%= form.hidden_field :payment_status, value: "paid" %>
+        <% if @order.booking.status == "upcoming" %>
+          <%= form.submit "Served" %>
+        <% else %>
+          <%= form.submit "Served", disabled: :true %>
         <% end %>
       <% end %>
+    <% elsif current_user.customer? && @order.booking.status == "upcoming" || @order.booking.status == "pending" %>
+      <%= form_with(model: @order.booking) do |f| %>
+        <%= f.hidden_field :status, value: "cancelled" %>
+        <% unless @order.booking.status == "pending" %>
+          <% if @order.booking.payment.payment_type == "card" %>
+            <%= f.hidden_field :payment_status, value: "refunded" %>
+          <% end %>
+        <% end %>
+        <% if @order.booking.status == "upcoming" || @order.booking.status == "pending" %>
+          <%= f.submit "Cancel" %>
+        <% else %>
+          <%= f.submit "Cancel", disabled: :true %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </div>
   </div>
