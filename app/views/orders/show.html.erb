@@ -112,7 +112,7 @@
       <% end %>
     </div>
     <div>
-      <% if @order.booking.status == "pending" %>
+      <% if @order.booking.status == "pending" && current_user.customer? %>
         <%= link_to "Pay now", checkout_path(booking_id: @order.booking.id), class: "pay-now-button" %>
       <% end %>
       <% if current_user.admin? %>
