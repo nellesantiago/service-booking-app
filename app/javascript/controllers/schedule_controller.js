@@ -7,6 +7,8 @@ export default class extends Controller {
     }
   change(event) {
     let date = event.target.value
+    let button = document.querySelector('input[type="submit"]')
+    button.setAttribute("disabled", true)
 
     get(`/orders/schedules?date=${date}`, {
       responseKind: "turbo-stream"
