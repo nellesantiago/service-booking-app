@@ -1,5 +1,13 @@
 <%= turbo_stream.update "collection-radio-buttons" do %>
   <%= fields_for @order do |order_form| %>
-    <%= order_form.collection_radio_buttons :time_slot_id, @time_slots, :id, :time %>
+    <%= order_form.collection_radio_buttons :time_slot_id,
+                                        @time_slots,
+                                        :id,
+                                        :time,
+                                        {},
+                                        data: {
+                                          action: "change->schedule#radio",
+                                          schedule_clicked_value: false
+                                        } %>
   <% end %>
 <% end %>
